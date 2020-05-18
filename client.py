@@ -16,14 +16,14 @@ def stream_wav_to_server():
                     time.sleep(1)
                     data = wave_file.readframes(const.FRAME_RATE)
                     if not data:
-                        print('File streamed completely. Exiting')
+                        print('\nFile streamed completely. Exiting')
                         break
                     client_socket.send(data)
                 except KeyboardInterrupt:
                     print('\nExiting')
                     break
-                except BrokenPipeError:
-                    print('Connection lost. Exiting')
+                except (BrokenPipeError, ConnectionResetError):
+                    print('\nConnection lost. Exiting')
                     break
 
 
